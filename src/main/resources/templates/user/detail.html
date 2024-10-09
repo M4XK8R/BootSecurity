@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>User Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .user-details {
+      max-width: 400px;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .user-details p {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+<h2>User Details</h2>
+
+<div class="user-details" th:if="${user != null}">
+  <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
+  <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
+  <p><strong>Second Name:</strong> <span th:text="${user.secondName}"></span></p>
+  <p><strong>Roles:</strong>
+  <ul>
+    <li th:each="role : ${user.userRoles}" th:text="${role}"></li>
+  </ul>
+  </p>
+</div>
+
+<div class="user-details" th:if="${user == null}">
+  <p>User not found.</p>
+</div>
+</body>
+</html>

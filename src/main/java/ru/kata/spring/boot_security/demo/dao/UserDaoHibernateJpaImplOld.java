@@ -2,21 +2,18 @@ package ru.kata.spring.boot_security.demo.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.util.LoggingUtil;
+import ru.kata.spring.boot_security.demo.util.DevelopHelper;
 
-@Repository
+//@Repository
+//@RequiredArgsConstructor
 public class UserDaoHibernateJpaImplOld implements UserDao {
 
 //  private final EntityManagerFactory entityManagerFactory;
-//
-//  public UserDaoHibernateJpaImpl(EntityManagerFactory entityManagerFactory) {
-//    this.entityManagerFactory = entityManagerFactory;
-//  }
 
   @Override
   public void createTable() {
@@ -71,6 +68,11 @@ public class UserDaoHibernateJpaImplOld implements UserDao {
   }
 
   @Override
+  public Optional<User> getById(long id) {
+    return Optional.empty();
+  }
+
+  @Override
   public List<User> getAll() {
     List<User> users = new ArrayList<>();
 
@@ -110,7 +112,7 @@ Private sector
       entityManagerConsumer.accept(entityManager);
       transaction.commit();
     } catch (Exception e) {
-      LoggingUtil.printExceptionInfo(
+      DevelopHelper.printExceptionInfo(
           "UserDaoHibernateJpaImpl",
           "run",
           e
@@ -124,7 +126,7 @@ Private sector
         try {
           entityManager.close();
         } catch (Exception e) {
-          LoggingUtil.printExceptionInfo(
+          DevelopHelper.printExceptionInfo(
               "UserDaoHibernateJpaImpl",
               "run",
               e

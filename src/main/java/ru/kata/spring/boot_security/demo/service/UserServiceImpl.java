@@ -1,24 +1,19 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import java.util.List;
-import ru.kata.spring.boot_security.demo.dao.UserDao;
-import ru.kata.spring.boot_security.demo.model.User;
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.model.User;
 
 @Service
-@Transactional()
+@Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
   private final UserDao userDao;
-
-  public UserServiceImpl(
-      @Qualifier("userDaoHibernateJpaImpl") UserDao userDao
-  ) {
-    this.userDao = userDao;
-  }
-
 
   @Override
   public void upsert(User user) {
@@ -30,12 +25,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void removeById(long id) {
+  public void deleteById(long id) {
     userDao.removeById(id);
   }
 
   @Override
-  public void removeAll() {
+  public void deleteAll() {
     userDao.cleanTable();
   }
 
@@ -43,5 +38,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> getAll() {
     return userDao.getAll();
+  }
+
+  @Override
+  public Optional<User> getById(long id) {
+    return userDao.getById(id);
   }
 }

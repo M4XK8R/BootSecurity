@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+  <title>Users</title>
+  <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 90%;
+      height: auto;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 64px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    .add-user-btn {
+      display: inline-block;
+      width: 150px;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .add-user-btn:hover {
+      background-color: #218838;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+
+    .get-btn {
+      background-color: #918c8c;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .get-btn:hover {
+      background-color: #6a6161;
+    }
+
+    .update-btn {
+      background-color: #ffc107;
+      color: #212529;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .update-btn:hover {
+      background-color: #e0a800;
+    }
+
+    .add-test-users-btn {
+      display: inline-block;
+      width: 150px;
+      padding: 10px;
+      background-color: #60b3b0;
+      color: white;
+      text-align: center;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .add-test-users-btn:hover {
+      background-color: #00627a;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Explicit column widths */
+    th:nth-child(1), td:nth-child(1) {
+      width: 10%;
+    }
+
+    /* Id */
+    th:nth-child(2), td:nth-child(2) {
+      width: 25%;
+    }
+
+    /* Name */
+    th:nth-child(3), td:nth-child(3) {
+      width: 25%;
+    }
+
+    /* Second name */
+    th:nth-child(4), td:nth-child(4) {
+      width: 25%;
+    }
+
+    /* Roles */
+    th:nth-child(5), td:nth-child(5) {
+      width: 15%;
+    }
+
+    /* Actions */
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Users</h1>
+  <div class="button-row">
+    <form th:method="GET" th:action="@{/users/add}">
+      <button type="submit" class="add-user-btn">Add new user</button>
+    </form>
+    <form th:method="POST" th:action="@{/users/wipe}">
+      <button type="submit" class="delete-btn">Delete all users</button>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Second name</th>
+      <th>Roles</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.name}"></td>
+      <td th:text="${user.secondName}"></td>
+      <td th:text="${user.userRoles}"></td>
+      <td>
+        <div class="action-buttons">
+          <form th:method="GET" th:action="@{/users/get/{id}(id=${user.id})}">
+            <button type="submit" class="get-btn">Details</button>
+          </form>
+          <form th:method="GET" th:action="@{/users/update/{id}(id=${user.id})}">
+            <button type="submit" class="update-btn">Update</button>
+          </form>
+          <form th:method="POST" th:action="@{/users/delete/{id}(id=${user.id})}">
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <form th:method="POST" th:action="@{/users/test/add}">
+      <button type="submit" class="add-test-users-btn">Add some users (test)</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

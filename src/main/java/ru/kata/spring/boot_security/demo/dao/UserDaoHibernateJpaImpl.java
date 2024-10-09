@@ -2,21 +2,19 @@ package ru.kata.spring.boot_security.demo.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
 @Repository
+@RequiredArgsConstructor
 public class UserDaoHibernateJpaImpl implements UserDao {
 
   @PersistenceContext
   private final EntityManager entityManager;
-
-  public UserDaoHibernateJpaImpl(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
-
 
   @Override
   public void createTable() {
@@ -62,6 +60,13 @@ public class UserDaoHibernateJpaImpl implements UserDao {
   }
 
   @Override
+  public Optional<User> getById(long id) {
+    return Optional.ofNullable(
+        entityManager.find(User.class, id)
+    );
+  }
+
+  @Override
   public List<User> getAll() {
     return new ArrayList<>(
         entityManager.createQuery(
@@ -73,6 +78,10 @@ public class UserDaoHibernateJpaImpl implements UserDao {
 
   @Override
   public void cleanTable() {
+    entityManager.createNativeQuery(
+        "DELETE FROM " + User.SUB_TABLE_NAME
+    ).executeUpdate();
+
     entityManager.createQuery(
         "DELETE FROM User"
     ).executeUpdate();

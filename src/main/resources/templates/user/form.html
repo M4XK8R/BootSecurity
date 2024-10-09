@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Create User</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .roles-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .role-item {
+      margin-right: 15px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+<form th:method="POST" th:action="@{/users/upsert}" th:object="${user}">
+  <input type="hidden" id="user_id" th:field="*{id}"/>
+
+  <label for="username">Name:</label>
+  <input type="text" id="username" th:field="*{name}" required/>
+
+  <label for="second_name">Second name:</label>
+  <input type="text" id="second_name" th:field="*{secondName}" required/>
+
+  <label>Roles:</label>
+  <div class="roles-container">
+    <div class="role-item">
+      <input type="checkbox" id="role_guest" th:field="*{userRoles}" th:value="'GUEST'"/>
+      <label for="role_guest">GUEST</label>
+    </div>
+    <div class="role-item">
+      <input type="checkbox" id="role_user" th:field="*{userRoles}" th:value="'USER'"/>
+      <label for="role_user">USER</label>
+    </div>
+    <div class="role-item">
+      <input type="checkbox" id="role_admin" th:field="*{userRoles}" th:value="'ADMIN'"/>
+      <label for="role_admin">ADMIN</label>
+    </div>
+    <div class="role-item">
+      <input type="checkbox" id="role_moderator" th:field="*{userRoles}" th:value="'MODERATOR'"/>
+      <label for="role_moderator">MODERATOR</label>
+    </div>
+  </div>
+
+  <input type="submit" value="Confirm"/>
+</form>
+</body>
+</html>

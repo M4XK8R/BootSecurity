@@ -1,6 +1,6 @@
 package ru.kata.spring.boot_security.demo.util;
 
-public final class LoggingUtil {
+public final class DevelopHelper {
 
   public static void printExceptionInfo(
       String className,
@@ -17,8 +17,18 @@ public final class LoggingUtil {
         className,
         methodName,
         exception.getClass(),
-        exception.getMessage()
-            .toLowerCase()
+        exception.getMessage().toLowerCase()
+    );
+  }
+
+  public static String createExceptionMessage(
+      String className,
+      String methodName,
+      String message
+  ) {
+    return String.format(
+        "%s %s(): %s",
+        className, methodName, message
     );
   }
 }
