@@ -1,19 +1,19 @@
 package ru.kata.spring.boot_security.demo.configs;
 
+import java.io.IOException;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Set;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
 
 @Component
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
-  // Spring Security использует объект Authentication, пользователя авторизованной сессии.
   @Override
   public void onAuthenticationSuccess(
       HttpServletRequest httpServletRequest,
@@ -23,10 +23,19 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     Set<String> roles = AuthorityUtils.authorityListToSet(
         authentication.getAuthorities()
     );
-    if (roles.contains("ROLE_USER")) {
-      httpServletResponse.sendRedirect("/users/list");
+
+    if (roles.contains(Role.ADMIN.getAuthority())) {
+      httpServletResponse.sendRedirect(
+          "/admin/users/list"
+      );
+    } else if (roles.contains(Role.USER.getAuthority())) {
+      UserDetailsImpl userDetails =
+          (UserDetailsImpl) authentication.getPrincipal();
+      httpServletResponse.sendRedirect(
+          "/user/info/" + userDetails.getUserId()
+      );
     } else {
-      httpServletResponse.sendRedirect("/");
+      httpServletResponse.sendRedirect("/no-role");
     }
   }
 }

@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controller;
+package ru.kata.spring.boot_security.demo.controller.admin;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +13,9 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.util.DevelopHelper;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
-final class ShowerUsersController {
+final class ShowerAdminController {
 
   private final UserService userService;
 
@@ -25,7 +25,7 @@ final class ShowerUsersController {
         "users",
         userService.getAll()
     );
-    return "user/list";
+    return "users/list";
   }
 
   @GetMapping("/add")
@@ -34,7 +34,7 @@ final class ShowerUsersController {
         "user",
         new User()
     );
-    return "user/form";
+    return "users/form";
   }
 
   @GetMapping("/update/{id}")
@@ -67,11 +67,11 @@ final class ShowerUsersController {
           )
       );
     }
-    return "user/form";
+    return "users/form";
   }
 
   @GetMapping("/get/{id}")
-  String showOneUser(
+  String showUserInfo(
       @PathVariable long id,
       Model model
   ) {
@@ -82,6 +82,6 @@ final class ShowerUsersController {
                 user
             )
         );
-    return "user/detail";
+    return "users/detail";
   }
 }

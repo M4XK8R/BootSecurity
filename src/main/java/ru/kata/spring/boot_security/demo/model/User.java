@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,9 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = User.TABLE_NAME)
 @Data
-@NoArgsConstructor
+@NoArgsConstructor()
 @RequiredArgsConstructor
+@AllArgsConstructor
 public final class User {
 
   public static final String TABLE_NAME = "users";
@@ -41,21 +43,17 @@ public final class User {
   @NotNull
   private String secondName;
 
+  @Column
+  private String email;
+
+  @Column
+  private String password;
+
   @CollectionTable(
       name = SUB_TABLE_NAME,
       joinColumns = @JoinColumn(name = "id")
   )
   @ElementCollection(fetch = FetchType.EAGER)
   @Enumerated(EnumType.STRING)
-  private Set<UserRole> userRoles;
-
-  public User(
-      String name,
-      String secondName,
-      Set<UserRole> userRoles
-  ) {
-    this.name = name;
-    this.secondName = secondName;
-    this.userRoles = userRoles;
-  }
+  private Set<Role> roles;
 }

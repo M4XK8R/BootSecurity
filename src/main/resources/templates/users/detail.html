@@ -19,6 +19,24 @@
     .user-details p {
       margin: 10px 0;
     }
+
+    .logout-form {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .logout-form button {
+      padding: 10px 20px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout-form button:hover {
+      background-color: #c82333;
+    }
   </style>
 </head>
 
@@ -29,15 +47,19 @@
   <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
   <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
   <p><strong>Second Name:</strong> <span th:text="${user.secondName}"></span></p>
+  <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
   <p><strong>Roles:</strong>
   <ul>
-    <li th:each="role : ${user.userRoles}" th:text="${role}"></li>
+    <li th:each="role : ${user.roles}" th:text="${role}"></li>
   </ul>
-  </p>
 </div>
 
 <div class="user-details" th:if="${user == null}">
   <p>User not found.</p>
 </div>
+
+<form class="logout-form" method="post" th:action="@{/logout}">
+  <button type="submit">Logout</button>
+</form>
 </body>
 </html>

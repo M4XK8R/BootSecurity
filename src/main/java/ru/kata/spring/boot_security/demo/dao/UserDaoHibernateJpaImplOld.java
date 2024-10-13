@@ -73,6 +73,11 @@ public class UserDaoHibernateJpaImplOld implements UserDao {
   }
 
   @Override
+  public Optional<User> getByEmail(String email) {
+    return Optional.empty();
+  }
+
+  @Override
   public List<User> getAll() {
     List<User> users = new ArrayList<>();
 
@@ -82,7 +87,8 @@ public class UserDaoHibernateJpaImplOld implements UserDao {
                 "from User",
                 User.class
             ).getResultList()
-        ));
+        )
+    );
 
     return users;
   }

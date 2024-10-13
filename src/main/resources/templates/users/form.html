@@ -70,35 +70,49 @@
     input[type="submit"]:hover {
       background-color: #45a049;
     }
+
+    .required {
+      color: red;
+    }
+
+    .optional {
+      color: #888;
+    }
   </style>
 </head>
 
 <body>
-<form th:method="POST" th:action="@{/users/upsert}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/users/upsert}" th:object="${user}">
   <input type="hidden" id="user_id" th:field="*{id}"/>
 
-  <label for="username">Name:</label>
+  <label for="username">Name: <span class="required">*</span></label>
   <input type="text" id="username" th:field="*{name}" required/>
 
-  <label for="second_name">Second name:</label>
+  <label for="second_name">Second name: <span class="required">*</span></label>
   <input type="text" id="second_name" th:field="*{secondName}" required/>
+
+  <label for="email">Email: <span class="optional">(optional)</span></label>
+  <input type="text" id="email" th:field="*{email}"/>
+
+  <label for="password">Password: <span class="optional">(optional)</span></label>
+  <input type="password" id="password" th:field="*{password}"/>
 
   <label>Roles:</label>
   <div class="roles-container">
     <div class="role-item">
-      <input type="checkbox" id="role_guest" th:field="*{userRoles}" th:value="'GUEST'"/>
+      <input type="checkbox" id="role_guest" th:field="*{roles}" th:value="'GUEST'"/>
       <label for="role_guest">GUEST</label>
     </div>
     <div class="role-item">
-      <input type="checkbox" id="role_user" th:field="*{userRoles}" th:value="'USER'"/>
+      <input type="checkbox" id="role_user" th:field="*{roles}" th:value="'USER'"/>
       <label for="role_user">USER</label>
     </div>
     <div class="role-item">
-      <input type="checkbox" id="role_admin" th:field="*{userRoles}" th:value="'ADMIN'"/>
+      <input type="checkbox" id="role_admin" th:field="*{roles}" th:value="'ADMIN'"/>
       <label for="role_admin">ADMIN</label>
     </div>
     <div class="role-item">
-      <input type="checkbox" id="role_moderator" th:field="*{userRoles}" th:value="'MODERATOR'"/>
+      <input type="checkbox" id="role_moderator" th:field="*{roles}" th:value="'MODERATOR'"/>
       <label for="role_moderator">MODERATOR</label>
     </div>
   </div>

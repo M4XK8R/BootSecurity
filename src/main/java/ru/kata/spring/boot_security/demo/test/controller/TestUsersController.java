@@ -9,7 +9,7 @@ import ru.kata.spring.boot_security.demo.test.MainTestHelper;
 import ru.kata.spring.boot_security.demo.test.service.TestService;
 
 @Controller
-@RequestMapping("/users/test")
+@RequestMapping("/admin/users/test")
 @RequiredArgsConstructor
 final class TestUsersController {
 
@@ -20,6 +20,6 @@ final class TestUsersController {
   @PostMapping("/add")
   String createSomeTestUsers() {
     testHelper.createAndInsertSomeUsers(userService, testService);
-    return "redirect:/users/list";
+    return "redirect:/admin/users/list";
   }
 }

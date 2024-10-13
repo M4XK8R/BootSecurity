@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controller;
+package ru.kata.spring.boot_security.demo.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,9 +10,9 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
-final class ModifierUsersController {
+final class ModifierAdminController {
 
   private final UserService userService;
 
@@ -21,7 +21,7 @@ final class ModifierUsersController {
       @ModelAttribute User user
   ) {
     userService.upsert(user);
-    return "redirect:/users/list";
+    return "redirect:/admin/users/list";
   }
 
   @PostMapping("/delete/{id}")
@@ -29,12 +29,12 @@ final class ModifierUsersController {
       @PathVariable long id
   ) {
     userService.deleteById(id);
-    return "redirect:/users/list";
+    return "redirect:/admin/users/list";
   }
 
   @PostMapping("/wipe")
   String deleteAllUsers() {
     userService.deleteAll();
-    return "redirect:/users/list";
+    return "redirect:/admin/users/list";
   }
 }

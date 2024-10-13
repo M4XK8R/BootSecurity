@@ -18,6 +18,8 @@ public interface UserDao {
 
   Optional<User> getById(long id);
 
+  Optional<User> getByEmail(String email);
+
   List<User> getAll();
 
   void cleanTable();

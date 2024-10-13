@@ -152,36 +152,45 @@
 
     /* Id */
     th:nth-child(2), td:nth-child(2) {
-      width: 25%;
+      width: 20%;
     }
 
     /* Name */
     th:nth-child(3), td:nth-child(3) {
-      width: 25%;
+      width: 20%;
     }
 
     /* Second name */
     th:nth-child(4), td:nth-child(4) {
-      width: 25%;
+      width: 20%;
+    }
+
+    /* Email */
+    th:nth-child(5), td:nth-child(5) {
+      width: 20%;
     }
 
     /* Roles */
-    th:nth-child(5), td:nth-child(5) {
-      width: 15%;
+    th:nth-child(6), td:nth-child(6) {
+      width: 10%;
     }
 
     /* Actions */
+    th:nth-child(7), td:nth-child(7) {
+      width: 20%;
+    }
   </style>
 </head>
 
 <body>
 <div class="container">
   <h1>Users</h1>
+
   <div class="button-row">
-    <form th:method="GET" th:action="@{/users/add}">
+    <form th:method="GET" th:action="@{/admin/users/add}">
       <button type="submit" class="add-user-btn">Add new user</button>
     </form>
-    <form th:method="POST" th:action="@{/users/wipe}">
+    <form th:method="POST" th:action="@{/admin/users/wipe}">
       <button type="submit" class="delete-btn">Delete all users</button>
     </form>
   </div>
@@ -192,6 +201,7 @@
       <th>Id</th>
       <th>Name</th>
       <th>Second name</th>
+      <th>Email</th>
       <th>Roles</th>
       <th>Actions</th>
     </tr>
@@ -201,16 +211,17 @@
       <td th:text="${user.id}"></td>
       <td th:text="${user.name}"></td>
       <td th:text="${user.secondName}"></td>
-      <td th:text="${user.userRoles}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.roles}"></td>
       <td>
         <div class="action-buttons">
-          <form th:method="GET" th:action="@{/users/get/{id}(id=${user.id})}">
+          <form th:method="GET" th:action="@{/admin/users/get/{id}(id=${user.id})}">
             <button type="submit" class="get-btn">Details</button>
           </form>
-          <form th:method="GET" th:action="@{/users/update/{id}(id=${user.id})}">
+          <form th:method="GET" th:action="@{/admin/users/update/{id}(id=${user.id})}">
             <button type="submit" class="update-btn">Update</button>
           </form>
-          <form th:method="POST" th:action="@{/users/delete/{id}(id=${user.id})}">
+          <form th:method="POST" th:action="@{/admin/users/delete/{id}(id=${user.id})}">
             <button type="submit" class="delete-btn">Delete</button>
           </form>
         </div>
@@ -220,7 +231,7 @@
   </table>
 
   <div class="footer">
-    <form th:method="POST" th:action="@{/users/test/add}">
+    <form th:method="POST" th:action="@{/admin/users/test/add}">
       <button type="submit" class="add-test-users-btn">Add some users (test)</button>
     </form>
   </div>

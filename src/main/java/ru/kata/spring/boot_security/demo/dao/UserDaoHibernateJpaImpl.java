@@ -67,6 +67,18 @@ public class UserDaoHibernateJpaImpl implements UserDao {
   }
 
   @Override
+  public Optional<User> getByEmail(String email) {
+    return Optional.ofNullable(
+        (User) entityManager.createQuery(
+            "FROM User WHERE email = :email"
+        ).setParameter(
+            "email",
+            email
+        ).getSingleResult()
+    );
+  }
+
+  @Override
   public List<User> getAll() {
     return new ArrayList<>(
         entityManager.createQuery(
