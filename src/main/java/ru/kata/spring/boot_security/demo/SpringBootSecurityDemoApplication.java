@@ -40,8 +40,5 @@ public class SpringBootSecurityDemoApplication {
             Set.of(Role.ADMIN)
         )
     );
-
-    new User();
-
   }
 }

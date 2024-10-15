@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controller.admin;
+package ru.kata.spring.boot_security.demo.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @Controller
 @RequestMapping("/admin/users")
 @RequiredArgsConstructor
-final class ModifierAdminController {
+final class AdminControllerPost {
 
   private final UserService userService;
 
@@ -37,4 +37,6 @@ final class ModifierAdminController {
     userService.deleteAll();
     return "redirect:/admin/users/list";
   }
+
+
 }

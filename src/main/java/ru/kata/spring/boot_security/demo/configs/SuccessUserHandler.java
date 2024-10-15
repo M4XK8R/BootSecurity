@@ -12,7 +12,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
 
 @Component
-public class SuccessUserHandler implements AuthenticationSuccessHandler {
+ class SuccessUserHandler implements AuthenticationSuccessHandler {
 
   @Override
   public void onAuthenticationSuccess(

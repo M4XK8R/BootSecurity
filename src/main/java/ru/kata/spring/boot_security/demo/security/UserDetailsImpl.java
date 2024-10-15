@@ -1,14 +1,10 @@
 package ru.kata.spring.boot_security.demo.security;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.model.Role;
 
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {

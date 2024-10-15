@@ -14,23 +14,6 @@
       padding: 0;
     }
 
-    .container {
-      width: 90%;
-      height: auto;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 64px;
-    }
-
     h1 {
       text-align: center;
       color: #333;
@@ -118,22 +101,6 @@
       background-color: #e0a800;
     }
 
-    .add-test-users-btn {
-      display: inline-block;
-      width: 150px;
-      padding: 10px;
-      background-color: #60b3b0;
-      color: white;
-      text-align: center;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-    }
-
-    .add-test-users-btn:hover {
-      background-color: #00627a;
-    }
-
     .button-row {
       display: flex;
       justify-content: space-between;
@@ -180,6 +147,7 @@
       width: 20%;
     }
   </style>
+
 </head>
 
 <body>
@@ -229,12 +197,6 @@
     </tr>
     </tbody>
   </table>
-
-  <div class="footer">
-    <form th:method="POST" th:action="@{/admin/users/test/add}">
-      <button type="submit" class="add-test-users-btn">Add some users (test)</button>
-    </form>
-  </div>
 </div>
 </body>
 </html>

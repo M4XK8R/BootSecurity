@@ -13,7 +13,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final SuccessUserHandler successUserHandler;
   private final UserDetailsService userDetailsService;

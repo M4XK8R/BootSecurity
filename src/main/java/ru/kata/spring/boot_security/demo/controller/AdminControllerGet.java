@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controller.admin;
+package ru.kata.spring.boot_security.demo.controller;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import ru.kata.spring.boot_security.demo.util.DevelopHelper;
 @Controller
 @RequestMapping("/admin/users")
 @RequiredArgsConstructor
-final class ShowerAdminController {
+final class AdminControllerGet {
 
   private final UserService userService;
 
