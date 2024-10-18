@@ -37,6 +37,4 @@ final class AdminControllerPost {
     userService.deleteAll();
     return "redirect:/admin/users/list";
   }
-
-
 }

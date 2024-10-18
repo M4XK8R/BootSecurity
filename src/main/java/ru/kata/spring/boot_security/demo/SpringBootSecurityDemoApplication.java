@@ -22,8 +22,9 @@ public class SpringBootSecurityDemoApplication {
     userService.upsert(
         new User(
             0,
-            "userName",
-            "userSecondName",
+            "userFirstName",
+            "userLastName",
+            (byte) 11,
             "user@mail.ru",
             "user",
             Set.of(Role.USER)
@@ -33,11 +34,12 @@ public class SpringBootSecurityDemoApplication {
     userService.upsert(
         new User(
             0,
-            "adminName",
-            "adminSecondName",
+            "adminFirstName",
+            "adminLastName",
+            (byte) 22,
             "admin@mail.ru",
             "admin",
-            Set.of(Role.ADMIN)
+            Set.of(Role.ADMIN, Role.USER)
         )
     );
   }

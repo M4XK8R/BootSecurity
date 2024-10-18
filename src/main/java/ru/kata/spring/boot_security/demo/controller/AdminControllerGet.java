@@ -1,5 +1,8 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import java.security.Principal;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,12 +23,42 @@ final class AdminControllerGet {
   private final UserService userService;
 
   @GetMapping("/list")
-  String showUsers(ModelMap model) {
-    model.addAttribute(
-        "users",
-        userService.getAll()
+  String showUsers(
+      ModelMap model,
+      Principal principal
+  ) {
+    User currentUser = userService.getByEmail(
+        principal.getName()
+    ).orElseThrow(() ->
+        new NoSuchElementException(
+            DevelopHelper.createExceptionMessage(
+                "AdminControllerGet",
+                "showUsers",
+                "User not found"
+            )
+        )
     );
-    return "users/list";
+    List<User> currentUsers = userService.getAll();
+
+    if (currentUsers.isEmpty() || !currentUsers.contains(currentUser)) {
+      throw new RuntimeException(
+          DevelopHelper.createExceptionMessage(
+              "AdminControllerGet",
+              "showUsers",
+              "Smth went wrong..."
+          )
+      );
+    }
+    model
+        .addAttribute(
+            "user",
+            currentUser
+        )
+        .addAttribute(
+            "users",
+            currentUsers
+        );
+    return "bootstrap/admin/list";
   }
 
   @GetMapping("/add")
@@ -70,18 +103,19 @@ final class AdminControllerGet {
     return "users/form";
   }
 
-  @GetMapping("/get/{id}")
-  String showUserInfo(
-      @PathVariable long id,
+  @GetMapping("/info")
+  String showCurrentUserInfo(
+      Principal principal,
       Model model
   ) {
-    userService.getById(id)
-        .ifPresent(user ->
-            model.addAttribute(
-                "user",
-                user
-            )
-        );
-    return "users/detail";
+    User currentUser = userService.getByEmail(
+        principal.getName()
+    ).orElseThrow();
+
+    model.addAttribute(
+        "user",
+        currentUser
+    );
+    return "bootstrap/admin/detail";
   }
 }

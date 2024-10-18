@@ -9,10 +9,9 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
 
 @Component
- class SuccessUserHandler implements AuthenticationSuccessHandler {
+class SuccessUserHandler implements AuthenticationSuccessHandler {
 
   @Override
   public void onAuthenticationSuccess(
@@ -29,13 +28,11 @@ import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
           "/admin/users/list"
       );
     } else if (roles.contains(Role.USER.getAuthority())) {
-      UserDetailsImpl userDetails =
-          (UserDetailsImpl) authentication.getPrincipal();
       httpServletResponse.sendRedirect(
-          "/user/info/" + userDetails.getUserId()
+          "/user/info"
       );
     } else {
-      httpServletResponse.sendRedirect("/no-role");
+      httpServletResponse.sendRedirect("/login");
     }
   }
 }

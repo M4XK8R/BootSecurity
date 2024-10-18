@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import com.sun.istack.NotNull;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -37,11 +38,14 @@ public final class User {
 
   @Column(nullable = false)
   @NotNull
-  private String name;
+  private String firstName;
 
   @Column(nullable = false)
   @NotNull
-  private String secondName;
+  private String lastName;
+
+  @Column(nullable = false)
+  private byte age;
 
   @Column
   private String email;
@@ -56,4 +60,17 @@ public final class User {
   @ElementCollection(fetch = FetchType.EAGER)
   @Enumerated(EnumType.STRING)
   private Set<Role> roles;
+
+  public boolean containsRole(String roleStr) {
+    for (Role role : roles) {
+      if (role.name().contains(roleStr)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public List<Role> getCurrentRolesInUse() {
+    return List.of(Role.USER, Role.ADMIN);
+  }
 }

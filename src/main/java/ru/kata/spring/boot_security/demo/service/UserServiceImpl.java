@@ -25,6 +25,21 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public Optional<User> getById(long id) {
+    return userDao.getById(id);
+  }
+
+  @Override
+  public Optional<User> getByEmail(String email) {
+    return userDao.getByEmail(email);
+  }
+
+  @Override
+  public List<User> getAll() {
+    return userDao.getAll();
+  }
+
+  @Override
   public void deleteById(long id) {
     userDao.removeById(id);
   }
@@ -32,16 +47,5 @@ public class UserServiceImpl implements UserService {
   @Override
   public void deleteAll() {
     userDao.cleanTable();
-  }
-
-  @Transactional(readOnly = true)
-  @Override
-  public List<User> getAll() {
-    return userDao.getAll();
-  }
-
-  @Override
-  public Optional<User> getById(long id) {
-    return userDao.getById(id);
   }
 }

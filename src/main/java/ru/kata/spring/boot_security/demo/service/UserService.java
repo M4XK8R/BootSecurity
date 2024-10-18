@@ -8,11 +8,13 @@ public interface UserService {
 
   void upsert(User user);
 
-  void deleteById(long id);
+  Optional<User> getById(long id);
 
-  void deleteAll();
+  Optional<User> getByEmail(String email);
 
   List<User> getAll();
 
-  Optional<User> getById(long id);
+  void deleteById(long id);
+
+  void deleteAll();
 }

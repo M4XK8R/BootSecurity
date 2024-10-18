@@ -28,12 +28,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest().authenticated()
         .and()
         .formLogin()
-        .permitAll()
+        .loginPage("/auth/login")
+        .loginProcessingUrl("/login")
         .successHandler(successUserHandler)
+        .permitAll()
         .and()
         .logout()
         .logoutUrl("/logout")
-        .logoutSuccessUrl("/login");
+        .logoutSuccessUrl("/bootstrap/auth/login");
   }
 
   @Override
