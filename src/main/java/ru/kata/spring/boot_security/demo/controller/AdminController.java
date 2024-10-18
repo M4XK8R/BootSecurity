@@ -3,13 +3,14 @@ package ru.kata.spring.boot_security.demo.controller;
 import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -18,7 +19,7 @@ import ru.kata.spring.boot_security.demo.util.DevelopHelper;
 @Controller
 @RequestMapping("/admin/users")
 @RequiredArgsConstructor
-final class AdminControllerGet {
+final class AdminController {
 
   private final UserService userService;
 
@@ -32,7 +33,7 @@ final class AdminControllerGet {
     ).orElseThrow(() ->
         new NoSuchElementException(
             DevelopHelper.createExceptionMessage(
-                "AdminControllerGet",
+                "AdminController",
                 "showUsers",
                 "User not found"
             )
@@ -43,7 +44,7 @@ final class AdminControllerGet {
     if (currentUsers.isEmpty() || !currentUsers.contains(currentUser)) {
       throw new RuntimeException(
           DevelopHelper.createExceptionMessage(
-              "AdminControllerGet",
+              "AdminController",
               "showUsers",
               "Smth went wrong..."
           )
@@ -58,49 +59,7 @@ final class AdminControllerGet {
             "users",
             currentUsers
         );
-    return "bootstrap/admin/list";
-  }
-
-  @GetMapping("/add")
-  String showUserForm(Model model) {
-    model.addAttribute(
-        "user",
-        new User()
-    );
-    return "users/form";
-  }
-
-  @GetMapping("/update/{id}")
-  String showUserForm(
-      @PathVariable long id,
-      Model model
-  ) throws RuntimeException {
-    if (id == 0) {
-      throw new RuntimeException(
-          DevelopHelper.createExceptionMessage(
-              "ShowerUsersController",
-              "showUserForm",
-              "userId should not be 0; abnormal behavior"
-          )
-      );
-    }
-    Optional<User> user = userService.getById(id);
-
-    if (user.isPresent()) {
-      model.addAttribute(
-          "user",
-          user
-      );
-    } else {
-      throw new RuntimeException(
-          DevelopHelper.createExceptionMessage(
-              "ShowerUsersController",
-              "showUserForm",
-              "user is absent in database; abnormal behavior"
-          )
-      );
-    }
-    return "users/form";
+    return "admin/list";
   }
 
   @GetMapping("/info")
@@ -116,6 +75,22 @@ final class AdminControllerGet {
         "user",
         currentUser
     );
-    return "bootstrap/admin/detail";
+    return "admin/detail";
+  }
+
+  @PostMapping("/upsert")
+  String upsertUser(
+      @ModelAttribute User user
+  ) {
+    userService.upsert(user);
+    return "redirect:/admin/users/list";
+  }
+
+  @PostMapping("/delete/{id}")
+  String deleteUserById(
+      @PathVariable long id
+  ) {
+    userService.deleteById(id);
+    return "redirect:/admin/users/list";
   }
 }

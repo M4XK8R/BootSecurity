@@ -28,8 +28,8 @@ final class UserController {
     ).orElseThrow(() ->
         new NoSuchElementException(
             DevelopHelper.createExceptionMessage(
-                "AdminControllerGet",
-                "showUsers",
+                "UserController",
+                "showUserInfo",
                 "User not found"
             )
         )
@@ -38,7 +38,7 @@ final class UserController {
         "user",
         currentUser
     );
-    return "bootstrap/user/detail";
+    return "user/detail";
   }
 }
 

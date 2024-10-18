@@ -32,7 +32,7 @@ class SuccessUserHandler implements AuthenticationSuccessHandler {
           "/user/info"
       );
     } else {
-      httpServletResponse.sendRedirect("/login");
+      httpServletResponse.sendRedirect("/auth/login");
     }
   }
 }

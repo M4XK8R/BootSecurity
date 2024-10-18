@@ -35,7 +35,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .logout()
         .logoutUrl("/logout")
-        .logoutSuccessUrl("/bootstrap/auth/login");
+        .logoutSuccessUrl("/auth/login");
   }
 
   @Override
